@@ -2,8 +2,9 @@ package main
 
 import (
 	"fmt"
-	"long-voyage/decode"
+	"long-voyage/execute"
 	"os"
+	"reflect"
 )
 
 func main() {
@@ -16,12 +17,14 @@ func main() {
 	bytecode := os.Args[1]
 
 	// check for valid bytecode
-	if !decode.IsValidHexString(bytecode) {
+	if !execute.IsValidHexStr(bytecode) {
 		panic("Invalid bytecode!")
 	}
 
 	//decode retrieved string to byte slice
-	decodedBytes := decode.StrToByteSlice(bytecode)
+	decodedBytes := execute.StrToByte(bytecode)
 
-	fmt.Println(decodedBytes)
+	execute.Execute(decodedBytes)
+
+	fmt.Println(decodedBytes, reflect.TypeOf(decodedBytes))
 }
