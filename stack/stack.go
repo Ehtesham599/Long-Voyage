@@ -1,5 +1,7 @@
 package stack
 
+import "math"
+
 type Stack []uint8
 
 func (s *Stack) IsEmpty() bool {
@@ -39,18 +41,50 @@ func (s *Stack) MStore() {
 
 }
 
-func (s *Stack) Add() {
+func (s *Stack) Add() (uint8, bool) {
+	if s.IsEmpty() {
+		return 0, false
+	}
+	i := len(*s) - 1
+	j := len(*s) - 2
 
+	x := (*s)[i] + (*s)[j]
+
+	return x, true
 }
 
-func (s *Stack) Mul() {
+func (s *Stack) Mul() (uint8, bool) {
+	if s.IsEmpty() {
+		return 0, false
+	}
+	i := len(*s) - 1
+	j := len(*s) - 2
 
+	x := (*s)[i] * (*s)[j]
+
+	return x, true
 }
 
-func (s *Stack) SDiv() {
+func (s *Stack) SDiv() (uint8, bool) {
+	if s.IsEmpty() {
+		return 0, false
+	}
+	i := len(*s) - 1
+	j := len(*s) - 2
 
+	x := (*s)[i] / (*s)[j]
+
+	return x, true
 }
 
-func (s *Stack) Exp() {
+func (s *Stack) Exp() (uint8, bool) {
+	if s.IsEmpty() {
+		return 0, false
+	}
+	i := len(*s) - 1
+	j := len(*s) - 2
 
+	x := uint8(math.Pow(float64((*s)[i]), float64((*s)[j])))
+
+	return x, true
 }
