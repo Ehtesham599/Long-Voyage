@@ -5,7 +5,7 @@ import (
 	"errors"
 	"fmt"
 	"long-voyage/instruction"
-	"long-voyage/stack"
+	"long-voyage/operation"
 )
 
 const (
@@ -96,8 +96,8 @@ func Execute(data string) {
 	}
 
 	var gasFee int
-	memoryStack := stack.Stack{}
-	memory := stack.Stack{}
+	memoryStack := operation.Stack{}
+	memory := operation.Stack{}
 
 	for i := 0; i < len(decodedBytes); i++ {
 		switch inst := GetInstruction(decodedBytes[i]); inst.Name {

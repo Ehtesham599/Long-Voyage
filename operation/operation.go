@@ -1,4 +1,4 @@
-package stack
+package operation
 
 import "math"
 
@@ -38,10 +38,10 @@ func (s *Stack) Peek() (uint8, bool) {
 	return x, true
 }
 
-func (m *Stack) MStore(s *Stack) (*Stack, uint8) {
+func (m *Stack) MStore(s *Stack) (*Stack, *uint8) {
 	*m = append(*m, (*s)[:len(*s)-1]...)
 	offset, _ := s.Peek()
-	return m, offset
+	return m, &offset
 }
 
 func (s *Stack) Add() (uint8, bool) {
