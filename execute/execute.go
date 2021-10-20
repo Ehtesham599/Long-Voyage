@@ -99,37 +99,38 @@ func Execute(data string) {
 	memoryStack := stack.Stack{}
 	memory := stack.Stack{}
 
-	for i := 0; i < len(decodedBytes); i += 2 {
+	for i := 0; i < len(decodedBytes); i++ {
 		switch inst := GetInstruction(decodedBytes[i]); inst.Name {
 
 		case PUSH:
 			memoryStack.Push(decodedBytes[i+1])
 			gasFee += inst.Gas
-			fmt.Printf("Pushed %v to Stack for %v\n", decodedBytes[i+1], inst.Gas)
+			i += 1
+			fmt.Printf("Pushed %v to Stack for %v\n", decodedBytes[i], gasFee)
 
 		case ADD:
 			memoryStack.Add()
 			gasFee += inst.Gas
-			fmt.Println("Added stack values for ", inst.Gas)
+			fmt.Println("Added stack values for ", gasFee)
 
 		case MUL:
 			memoryStack.Mul()
 			gasFee += inst.Gas
-			fmt.Println("Mul stack values for ", inst.Gas)
+			fmt.Println("Mul stack values for ", gasFee)
 
 		case SDIV:
 			memoryStack.SDiv()
 			gasFee += inst.Gas
-			fmt.Println("Div stack values for ", inst.Gas)
+			fmt.Println("Div stack values for ", gasFee)
 
 		case EXP:
 			_, exponent, _ := memoryStack.Exp()
 			gasFee += inst.Gas * int(exponent)
-			fmt.Println("Exp stack values for ", inst.Gas)
+			fmt.Println("Exp stack values for ", gasFee)
 
 		case MSTORE:
 			temp, offset := memory.MStore(&memoryStack)
-			fmt.Println(temp, (&offset))
+			fmt.Println(temp, offset)
 
 		case NULL:
 			panic("unknown instruction")
